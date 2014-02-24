@@ -1,4 +1,4 @@
-# Responsivr
+# Responsivr :+1:
 
 Demo and docs:
 > http://artpolikarpov.github.io/responsivr.js/
