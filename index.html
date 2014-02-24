@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Responsivr</title>
+  <link rel="shortcut icon" href="favicon.png" />
+
+  <link rel="stylesheet" href="libs/normalize.css"/>
+  <style>
+    html, body {
+      margin: 0;
+    }
+
+    body {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    
+    a {
+      color: #43648d;
+    }
+
+    small {
+      opacity: .5;
+    }
+
+    .floor {
+      text-align: center;
+      padding: 10px 20px 20px;
+    }
+
+    .floor__wrap {
+      text-align: left;
+      max-width: 38em;
+      margin: 0 auto;
+    }
+
+    .floor:nth-child(odd) {
+      background-color: #f3f3f3;
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 0;
+      position: relative;
+    }
+
+    h1 small {
+      color: #ccc;
+    }
+
+    h3 {
+      margin-top: 1.5em;
+    }
+
+    * + p, * + ul, * + ol, * + pre, * + blockquote {
+      margin-top: 0;
+      position: relative;
+    }
+
+    blockquote, pre {
+      border-left: 3px solid #86503c;
+      padding-left: 10px;
+      margin-left: -13px;
+    }
+
+    code {
+      color: #86503c;
+      font-size: 95%;
+      white-space: nowrap;
+    }
+
+    pre code {
+      white-space: pre;
+    }
+
+    mark {
+      background-color: #ff9;
+      color: inherit;
+    }
+
+    mark.unmark {
+      color: #aaa;
+      background: none;
+    }
+
+    mark.comment {
+      color: #555;
+      background: none;
+    }
+
+    p + pre, p + blockquote, p + ul, p + ol, pre + .apply-button {
+      margin-top: -.75em;
+      margin-bottom: 1.5em;
+    }
+
+    abbr {
+      letter-spacing: .1em;
+      margin-right: -.1em;
+    }
+
+    form {
+      margin-top: .2em;
+      margin-bottom: 2em;
+    }
+
+    .button, .input {
+      line-height: normal;
+      color: #000;
+      background-color: inherit;
+      border: 1px solid #43648d;
+      border-radius: 2px;
+      padding: 8px 18px;
+      outline: none;
+      position: relative;
+      box-shadow: none;
+      text-decoration: none;
+    }
+
+    .input {
+      width: 18em;
+      max-width: 80%;
+      margin-bottom: .3em;
+      background-color: #fff;
+    }
+
+    .input:focus {
+      border-color: #43648d;
+      box-shadow: 0 0 10px #b3d4fd;
+    }
+
+    .button:hover, .button.target {
+      background-color: #43648d;
+      color: #fff;
+    }
+
+    .button:active, .button.target {
+      border: none;
+      padding: 9px 19px;
+      color: #fff;
+      box-shadow: 0 0 7px -1px #000 inset;
+    }
+
+    .button:active {
+      background-color: #33547d;
+    }
+
+    .download {
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+    }
+
+    .download .button {
+      display: inline-block;
+      padding: 18px 28px;
+    }
+
+    .download .button:active {
+      padding: 19px 29px;
+    }
+
+    .apply-button .button.target:after {
+      content: 'Applied';
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      background-color: inherit;
+    }
+
+    .apply-button .button.target:hover:after {
+      content: 'Cancel';
+    }
+
+    /* */
+    body.style .responsivr {
+      background: none;
+      opacity: 0;
+      -webkit-transform: translateY(-10px) perspective(600px) rotateX(10deg);
+          -ms-transform: translateY(-10px) perspective(600px) rotateX(10deg);
+              transform: translateY(-10px) perspective(600px) rotateX(10deg);
+      -webkit-transition: -webkit-transform .2s ease-out, opacity .2s linear;
+              transition: transform .2s ease-out, opacity .2s linear;
+    }
+
+    body.style .responsivr--visible {
+      opacity: .8;
+      -webkit-transform: translateY(0) perspective(600px) rotateX(0);
+          -ms-transform: translateY(0) perspective(600px) rotateX(0);
+              transform: translateY(0) perspective(600px) rotateX(0);
+    }
+
+    body.style .responsivr__label {
+      font-size: 72px;
+      line-height: 1;
+      color: #fff;
+      background-color: #000;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="floor"><div class="floor__wrap">
+
+  <h1>Responsivr</h1>
+
+  <p>A small piece of JavaScript that makes sites more <em>responsive</em> even if they are completely fixed.</p>
+
+  <p><span style="letter-spacing: .2em;">Resize</span> your browser to see how it acts.</p>
+
+  <div class="download">
+    <a href="https://raw.github.com/artpolikarpov/responsivr.js/master/dist/responsivr.min.js" class="button">Download Responsivr</a><br>
+    <small>v0.1.0, 0.6 KB gzipped</small>
+  </div>
+
+</div></div>
+
+<div class="floor"><div class="floor__wrap">
+  <h2>Setup and basic usage</h2>
+
+  <p>Add the following to your page:</p>
+
+  <pre><code>&lt;script>
+<mark class="comment">// Place for options</mark>
+&lt;/script>
+<mark>&lt;script src="/path/to/responsivr.min.js">&lt;/script></mark></code></pre>
+
+  <h3>Static labels</h3>
+
+  <p>Put your labels into <code>RESPONSIVR_LABELS</code>:</p>
+
+  <pre><code>&lt;script>
+<mark>RESPONSIVR_LABELS</mark> = [
+  'Only the brave resize!',
+  'Smile! You can do it.',
+  'Stick with it.',
+  ':—)',
+  'No excuses, resize like a champion.',
+  'You’re worth it.',
+  'Try, try again.'
+];
+&lt;/script>
+<mark class="unmark">&lt;script src="/path/to/responsivr.min.js">&lt;/script></mark></code></pre>
+
+  <div class="apply-button"><button class="button" data-snippet="labels">Apply the code</button></div>
+
+  <h3>Dynamic labels</h3>
+
+  <p>Use functions to generate labels on the fly:</p>
+
+  <pre><code><mark class="unmark">&lt;script></mark>
+RESPONSIVR_LABELS = [
+  function () {
+    return window.innerWidth + 'px &lt;strong>×&lt;/strong> '
+         + window.innerHeight + 'px';
+  }
+];
+<mark class="unmark">&lt;/script></mark></code></pre>
+
+  <div class="apply-button"><button class="button" data-snippet="dimensions">Apply the code</button></div>
+
+  <h3>No random</h3>
+
+  <p>Turn off <code>RESPONSIVR_RANDOM</code> if you need:</p>
+
+  <pre><code><mark class="unmark">&lt;script></mark>
+<mark>RESPONSIVR_RANDOM = false;</mark>
+RESPONSIVR_LABELS = [
+  'One, Two, Three O’clock,',
+  'Four O’clock rock,',
+  'Five, Six, Seven O’clock,',
+  'Eight O’clock rock,',
+  'Nine, Ten, Eleven O’clock,',
+  'Twelve O’clock rock,',
+  'We’re gonna rock around the clock tonight!'
+];
+<mark class="unmark">&lt;/script></mark></code></pre>
+
+  <div class="apply-button"><button class="button" data-snippet="rock">Apply the code</button></div>
+
+  <h3>Style</h3>
+  <p>Override rules for <code>.responsivr</code>, <code>.responsivr--visible</code>, and <code>.responsivr__label</code> classes:</p>
+  <pre><code><mark class="unmark">&lt;style></mark>
+body .responsivr {
+  background: none;
+  opacity: 0;
+  transform: translateY(-10px) perspective(600px) rotateX(10deg);
+  transition-property: transform, opacity;
+}
+
+body .responsivr--visible {
+  opacity: .8;
+  transform: translateY(0) perspective(600px) rotateX(0);
+}
+
+body .responsivr__label {
+  font-size: 72px;
+  line-height: 1;
+  color: #fff;
+  background-color: #000;
+  border-radius: 3px;
+}
+<mark class="unmark">&lt;/style></mark></code></pre>
+
+  <div class="apply-button"><button class="button" data-snippet="style">Apply the code</button></div>
+
+  <h3>Two more options</h3>
+
+  <pre><code><mark class="unmark">&lt;script></mark>
+<mark class="comment">// How many milliseconds to show the overlay:</mark>
+RESPONSIVR_HIDE_DELAY = 500;
+
+<mark class="comment">// Hiding duration:</mark>
+RESPONSIVR_HIDE_DURATION = 250;
+<mark class="unmark">&lt;/script></mark></code></pre>
+
+</div></div>
+
+<div class="floor">
+  <div class="floor__wrap">
+    <h2><label for="fitting-url">Quick fitting to your site</label></h2>
+    <form action="demo.html">
+      <input name="url" type="url" id="fitting-url" class="input" required value="http://wikipedia.org/" />
+      <button class="button">See</button><br>
+      <small>Don’t forget to resize :-)</small>
+    </form>
+  </div>
+</div>
+
+<div class="floor"><div class="floor__wrap">
+  <h2><abbr>API</abbr></h2>
+
+  <p>No comment, hackers.</p>
+
+  <h3>Options</h3>
+  <ul>
+    <li><code>RESPONSIVR_LABELS</code></li>
+    <li><code>RESPONSIVR_RANDOM</code></li>
+    <li><code>RESPONSIVR_HIDE_DELAY</code></li>
+    <li><code>RESPONSIVR_HIDE_DURATION</code></li>
+    <li><code>RESPONSIVR_MANUAL_START</code></li>
+  </ul>
+
+  <h3>Methods</h3>
+  <ul>
+    <li><code>Responsivr.initialize()</code></li>
+    <li><code>Responsivr.show()</code></li>
+    <li><code>Responsivr.hide()</code></li>
+    <li><code>Responsivr.destroy()</code></li>
+  </ul>
+
+  <h3>Callbacks</h3>
+  <ul>
+    <li><code>RESPONSIVR_ON_SHOW</code></li>
+    <li><code>RESPONSIVR_ON_HIDE</code></li>
+  </ul>
+
+  <h3>Variables</h3>
+  <ul>
+    <li><code>Responsivr.overlay</code></li>
+    <li><code>Responsivr.label</code></li>
+    <li><code>Responsivr.labelIndex</code></li>
+    <li><code>Responsivr.isWatching</code></li>
+    <li><code>Responsivr.isHiding</code></li>
+  </ul>
+
+</div></div>
+
+<div class="floor"><div class="floor__wrap">
+  <p>Move the bellows.<br>
+    <small>© 2014 Artem Polikarpov</small></p>
+</div></div>
+
+<style>
+  .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 11em;
+    height: 11em;
+    line-height: 2.5;
+    font-size: 15px;
+  }
+
+  .badge a {
+    position: absolute;
+    bottom: 50%;
+    right: -50%;
+    left: -50%;
+    visibility: visible;
+    color: #43648d;
+    border: 1px solid #43648d;
+    text-decoration: none;
+    text-align: center;
+    -webkit-transform-origin: 50% 100%;
+    -ms-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    -webkit-transform: rotate(45deg)translateY(-1em);
+    -ms-transform: rotate(45deg)translateY(-1em);
+    transform: rotate(45deg)translateY(-1em);
+  }
+
+  .badge a:hover {
+    color: #fff;
+    background-color: #43648d;
+  }
+</style>
+
+<p class="badge">
+  <a href="https://github.com/artpolikarpov/responsivr.js/">Fork me on GitHub</a>
+</p>
+
+
+<script src="src/responsivr.js"></script>
+
+<script src="libs/jquery/jquery.js"></script>
+
+<script>
+  (function () {
+    function setHash (hash) {
+      location.replace(location.protocol
+          + '//'
+          + location.host
+          + location.pathname.replace(/^\/?/, '/')
+          + location.search
+          + '#' + hash);
+    }
+
+    var currentSnippetName,
+        snippets = {
+          basic: {
+            RESPONSIVR_HIDE_DELAY: 500,
+            RESPONSIVR_HIDE_DURATION: 250,
+            RESPONSIVR_LABELS: ['This is responsive!'],
+            RESPONSIVR_RANDOM: true
+          }
+        },
+        hideTimeout,
+        $body = $('body'),
+        $buttons = $('.apply-button .button');
+
+    snippets.labels = $.extend({}, snippets.basic, {
+      RESPONSIVR_LABELS: [
+        'Only the brave resize!',
+        'Smile! You can do it.',
+        'Stick with it.',
+        ':—)',
+        'No excuses, resize like a champion.',
+        'You’re worth it.',
+        'Try, try again.'
+      ]
+    });
+
+    snippets.dimensions = $.extend({}, snippets.basic, {
+      RESPONSIVR_LABELS: [
+        function () {
+          return window.innerWidth + 'px <strong>×</strong> '
+               + window.innerHeight + 'px';
+        }
+      ]
+    });
+
+    snippets.rock = $.extend({}, snippets.basic, {
+      RESPONSIVR_RANDOM: false,
+      RESPONSIVR_LABELS: [
+        'One, Two, Three O’clock,',
+        'Four O’clock rock,',
+        'Five, Six, Seven O’clock,',
+        'Eight O’clock rock,',
+        'Nine, Ten, Eleven O’clock,',
+        'Twelve O’clock rock,',
+        'We’re gonna rock around the clock tonight!'
+      ]
+    });
+
+    $buttons
+        .on('click', function () {
+          var $this = $(this),
+              styleName = $this.data('style'),
+              snippetName = $this.data('snippet');
+
+          $buttons
+              .not($this.toggleClass('target'))
+              .removeClass('target');
+
+          if (currentSnippetName === snippetName) {
+            snippetName = 'basic';
+          }
+
+          setHash(snippetName);
+          $body.attr('class', snippetName);
+
+          if (snippets[snippetName]) {
+            Responsivr.destroy();
+
+            $.each(snippets[snippetName], function (key, value) {
+              window[key] = value;
+            });
+
+            Responsivr.initialize();
+          }
+
+          if (snippetName !== 'basic') {
+            Responsivr.show();
+            //Responsivr.labelIndex = -1;
+            clearTimeout(hideTimeout);
+            hideTimeout = setTimeout(Responsivr.hide, 1000);
+          }
+
+          currentSnippetName = snippetName;
+        })
+        .filter('[data-snippet="' + location.hash.replace(/^#/, '') + '"]').click();
+
+
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+  <script>
+    //RESPONSIVR_LABELS = ['Ресайз'];
+    //RESPONSIVR_RANDOMIZR = false;
+    //RESPONSIVR_MANUAL_START = true;
+  </script>
+  <link rel="stylesheet" href="libs/normalize.css"/>
+  <script src="dist/responsivr.min.js"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+<iframe frameborder="0" width="100%" height="100%" id="site"></iframe>
+
+<script>
+  function searchToObject (search) {
+    var request = {},
+        pairs = search.substring(search.indexOf('?') + 1).split('&');
+
+    for (var i = 0; i < pairs.length; i++) {
+      var pair = pairs[i].split('=');
+      var value = decodeURIComponent(pair[1].replace(/\+/g, ' '));
+      request[decodeURIComponent(pair[0])] = value !== 'false' ? value !== 'true' ? value : true : false;
+    }
+
+    return request;
+  };
+
+  document.getElementById('site').src = searchToObject(location.search).url;
+</script>
+
+</body>
+</html>
