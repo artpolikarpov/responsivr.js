@@ -1,6 +1,6 @@
-# responsivr.js
+# Responsivr
 
-
+Demo and docs:
 > http://artpolikarpov.github.io/responsivr.js/
 
 ## Release History
